@@ -29,7 +29,6 @@ html, body {
 #app {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
   min-height: 100vh;
   padding: 20px 0 40px;
 }
@@ -42,270 +41,145 @@ html, body {
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
 }
 
-/* ─── SCREENS ─── */
+/* SCREENS */
 .screen { display: none; flex-direction: column; flex: 1; padding: 32px 24px 28px; }
 .screen.active { display: flex; }
 
-/* ─── SPLASH ─── */
-#screen-splash {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 0;
-}
-.splash-title {
-  font-size: 54px;
-  font-weight: 800;
-  letter-spacing: -2px;
-  line-height: 1;
-}
+/* SPLASH */
+#screen-splash { align-items: center; justify-content: center; text-align: center; }
+.splash-title { font-size: 58px; font-weight: 800; letter-spacing: -2px; line-height: 1; }
 .splash-title span { color: var(--accent); }
-.splash-tagline {
-  margin-top: 14px;
-  font-size: 15px;
-  color: var(--muted);
-  letter-spacing: 0.02em;
-}
-.splash-btn {
-  margin-top: 48px;
-  width: 100%;
-}
+.splash-tagline { margin-top: 14px; font-size: 15px; color: var(--muted); }
+.splash-spacer { flex: 1; }
 
-/* ─── ONBOARD ─── */
-.onboard-step { display: none; flex-direction: column; gap: 16px; }
-.onboard-step.active { display: flex; }
-.onboard-q {
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  margin-bottom: 4px;
-}
+/* ONBOARD — single screen */
+.onboard-title { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 28px; }
+.onboard-section { margin-bottom: 24px; }
+.onboard-section-label { font-size: 13px; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
 .chip-group { display: flex; gap: 10px; flex-wrap: wrap; }
 .chip {
-  padding: 12px 22px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  font-size: 15px;
-  cursor: pointer;
-  font-family: var(--font);
-  transition: background 0.15s, border-color 0.15s;
+  padding: 11px 20px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--card);
+  color: var(--text); font-size: 15px; cursor: pointer;
+  font-family: var(--font); transition: background 0.15s, border-color 0.15s;
 }
 .chip.selected, .chip:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.dob-row { display: flex; gap: 10px; }
 .text-input {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  font-size: 16px;
-  color: var(--text);
-  font-family: var(--font);
-  outline: none;
-  width: 100%;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 13px 15px;
+  font-size: 16px; color: var(--text); font-family: var(--font);
+  outline: none; width: 100%;
 }
 .text-input:focus { border-color: var(--accent); }
 .text-input::placeholder { color: var(--muted); }
-label.field-label { font-size: 13px; color: var(--muted); margin-bottom: -8px; }
-.onboard-next { margin-top: 12px; }
+select.text-input { appearance: none; cursor: pointer; }
 
-/* ─── RATE ─── */
-#screen-rate { padding: 16px 16px 20px; gap: 0; }
-
-.rate-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-  padding: 0 4px;
-}
-.rate-header-title { font-size: 15px; font-weight: 600; }
-.rate-counter { font-size: 13px; color: var(--muted); }
+/* RATE */
+#screen-rate { padding: 16px 16px 18px; gap: 0; }
+.rate-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; padding: 0 4px; gap: 12px; }
+.rate-header-title { font-size: 14px; font-weight: 600; color: var(--muted); line-height: 1.4; flex: 1; }
+.rate-counter { font-size: 13px; color: var(--muted); white-space: nowrap; padding-top: 1px; }
 
 .profile-card {
-  background: var(--card);
-  border-radius: 20px;
-  overflow: hidden;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+  background: var(--card); border-radius: 20px;
+  overflow: hidden; flex: 1; display: flex;
+  flex-direction: column; min-height: 0;
 }
 
-/* TODO: replace color block with <video src> when clips exist */
+/* TODO: replace <video src> paths with real CDN clips when available */
 .profile-visual {
   flex: 0 0 58%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #1e1e22;
 }
-.profile-initial {
-  font-size: 96px;
-  font-weight: 800;
-  color: rgba(255,255,255,0.28);
-  user-select: none;
-  letter-spacing: -3px;
+.profile-visual video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
 }
+/* Fallback initial shown while video loads */
+.profile-visual-fallback {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 80px; font-weight: 800;
+  color: rgba(255,255,255,0.15); letter-spacing: -2px;
+  z-index: 0;
+}
+.profile-visual video { z-index: 1; }
 
 .profile-info {
-  flex: 1;
-  padding: 16px 20px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex: 1; padding: 14px 18px 12px;
+  display: flex; flex-direction: column; gap: 3px;
   border-top: 1px solid var(--border);
 }
-.profile-name { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+.profile-name { font-size: 21px; font-weight: 700; letter-spacing: -0.4px; }
 .profile-school-job { font-size: 13px; color: var(--muted); }
-.profile-social {
-  font-size: 11px;
-  color: rgba(246,243,238,0.22);
-  margin-top: 4px;
-  font-style: italic;
-}
+.profile-social { font-size: 11px; color: rgba(246,243,238,0.2); margin-top: 5px; font-style: italic; }
 
-.rating-grid {
-  margin-top: 14px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-}
+.rating-grid { margin-top: 12px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; }
 .rating-btn {
-  min-height: 48px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: var(--font);
-  transition: background 0.12s, border-color 0.12s;
+  min-height: 48px; border-radius: 12px;
+  border: 1px solid var(--border); background: var(--card);
+  color: var(--text); font-size: 16px; font-weight: 600;
+  cursor: pointer; font-family: var(--font);
+  transition: background 0.1s, border-color 0.1s, transform 0.1s;
 }
-.rating-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.rating-btn:hover { background: rgba(226,84,60,0.18); border-color: var(--accent); }
+.rating-btn:active { transform: scale(0.93); }
+.rating-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+.rating-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-/* ─── REVEAL ─── */
+/* REVEAL */
 #screen-reveal { padding: 0; }
-.reveal-inner {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 32px 24px 28px;
-  gap: 20px;
-}
+.reveal-inner { flex: 1; display: flex; flex-direction: column; padding: 32px 24px 24px; gap: 18px; }
 .reveal-badge {
-  display: inline-block;
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  display: inline-block; padding: 5px 14px;
+  border-radius: 999px; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
 }
 .reveal-badge.bot { background: var(--accent); color: #fff; }
-.reveal-badge.human { background: #2A5C3C; color: #8DFFC0; }
-.reveal-title { font-size: 38px; font-weight: 800; letter-spacing: -1px; }
+.reveal-badge.human { background: #1e3d2a; color: #7de0a8; border: 1px solid #7de0a8; }
+.reveal-title { font-size: 40px; font-weight: 800; letter-spacing: -1px; margin-top: 10px; }
 .reveal-body { font-size: 15px; color: var(--muted); line-height: 1.6; }
-.reveal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-.reveal-progress-wrap {
-  padding: 0 24px 24px;
-}
-.reveal-progress-label {
-  font-size: 11px;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-.reveal-progress-track {
-  height: 4px;
-  background: var(--border);
-  border-radius: 999px;
-  overflow: hidden;
-}
-.reveal-progress-fill {
-  height: 100%;
-  background: var(--accent);
-  border-radius: 999px;
-  transition: width 0.4s ease;
-}
+.reveal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+.reveal-progress-wrap { padding: 0 24px 28px; }
+.reveal-progress-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+.reveal-progress-track { height: 4px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.reveal-progress-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.4s ease; }
 
-/* ─── REPORT ─── */
-.report-headline { font-size: 32px; font-weight: 800; letter-spacing: -1px; line-height: 1.2; }
+/* REPORT */
+.report-headline { font-size: 32px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.2; }
 .report-headline span { color: var(--accent); }
 .report-bars { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
 .bar-row { display: flex; flex-direction: column; gap: 6px; }
 .bar-label { font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; }
 .bar-track { height: 8px; background: var(--border); border-radius: 999px; overflow: hidden; }
 .bar-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.6s ease; }
-.report-stats {
-  margin-top: 24px;
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  display: flex;
-  gap: 0;
-}
+.report-stats { margin-top: 22px; background: var(--card); border-radius: var(--radius); padding: 18px 20px; display: flex; }
 .stat-item { flex: 1; text-align: center; }
 .stat-item + .stat-item { border-left: 1px solid var(--border); }
 .stat-num { font-size: 28px; font-weight: 800; color: var(--accent); }
 .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
-.report-cta { margin-top: 24px; }
-.reset-link {
-  display: block;
-  text-align: center;
-  margin-top: 16px;
-  font-size: 12px;
-  color: var(--muted);
-  cursor: pointer;
-  text-decoration: underline;
-  background: none;
-  border: none;
-  font-family: var(--font);
-}
-.reset-link:hover { color: var(--text); }
+.reset-link { display: block; text-align: center; margin-top: 14px; font-size: 12px; color: var(--muted); cursor: pointer; text-decoration: underline; background: none; border: none; font-family: var(--font); }
 
-/* ─── REGISTER ─── */
+/* REGISTER */
 .register-title { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
 .register-sub { font-size: 14px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
 .register-fields { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
-#screen-confirm { text-align: center; justify-content: center; align-items: center; gap: 12px; }
-.confirm-icon {
-  width: 72px; height: 72px;
-  border-radius: 50%;
-  background: #2A5C3C;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 32px;
-  margin-bottom: 8px;
-}
+#screen-confirm { text-align: center; justify-content: center; align-items: center; gap: 10px; }
+.confirm-mark { width: 68px; height: 68px; border-radius: 50%; background: #1e3d2a; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #7de0a8; margin-bottom: 8px; }
 .confirm-title { font-size: 26px; font-weight: 700; }
 .confirm-sub { font-size: 14px; color: var(--muted); line-height: 1.5; max-width: 280px; }
 
-/* ─── SHARED BUTTONS ─── */
-.btn {
-  display: block;
-  width: 100%;
-  padding: 16px;
-  border-radius: var(--radius);
-  border: none;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: var(--font);
-  transition: opacity 0.15s, transform 0.1s;
-  text-align: center;
-}
-.btn:active { transform: scale(0.98); }
+/* SHARED BUTTONS */
+.btn { display: block; width: 100%; padding: 16px; border-radius: var(--radius); border: none; font-size: 16px; font-weight: 700; cursor: pointer; font-family: var(--font); transition: opacity 0.15s; text-align: center; }
 .btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover { opacity: 0.9; }
-.btn-secondary {
-  background: var(--card);
-  color: var(--text);
-  border: 1px solid var(--border);
-}
-.btn-secondary:hover { border-color: rgba(246,243,238,0.25); }
-
+.btn-primary:hover { opacity: 0.88; }
+.btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
 .spacer { flex: 1; }
 </style>
 </head>
@@ -313,61 +187,79 @@ label.field-label { font-size: 13px; color: var(--muted); margin-bottom: -8px; }
 <div id="app">
 <div class="phone">
 
-  <!-- ── SPLASH ── -->
+  <!-- SPLASH -->
   <div id="screen-splash" class="screen active">
-    <div class="spacer"></div>
+    <div class="splash-spacer"></div>
     <div class="splash-title">HOT<br>or <span>BOT</span></div>
     <div class="splash-tagline">Free to rate. Pay to match.</div>
-    <div class="spacer"></div>
-    <button class="btn btn-primary splash-btn" onclick="showScreen('onboard'); onboardStep(0)">Start rating</button>
+    <div class="splash-spacer"></div>
+    <button class="btn btn-primary" onclick="showScreen('onboard')">Start rating</button>
   </div>
 
-  <!-- ── ONBOARD ── -->
+  <!-- ONBOARD — single screen -->
   <div id="screen-onboard" class="screen">
-    <!-- Step A: I am -->
-    <div id="onboard-a" class="onboard-step active">
-      <div class="onboard-q">I am</div>
+    <div class="onboard-title">Quick setup</div>
+
+    <div class="onboard-section">
+      <div class="onboard-section-label">I am</div>
       <div class="chip-group">
         <div class="chip" onclick="selectChip(this,'gender')">Woman</div>
         <div class="chip" onclick="selectChip(this,'gender')">Man</div>
         <div class="chip" onclick="selectChip(this,'gender')">Non-binary</div>
       </div>
-      <div class="spacer"></div>
-      <button class="btn btn-primary onboard-next" onclick="onboardStep(1)">Next</button>
     </div>
-    <!-- Step B: Born + City -->
-    <div id="onboard-b" class="onboard-step">
-      <div class="onboard-q">Tell us about you</div>
-      <label class="field-label">Born</label>
-      <input id="input-year" class="text-input" type="number" placeholder="1990" min="1940" max="2010">
-      <label class="field-label">City</label>
-      <input id="input-city" class="text-input" type="text" placeholder="Austin, TX">
-      <div class="spacer"></div>
-      <button class="btn btn-primary onboard-next" onclick="onboardStep(2)">Next</button>
+
+    <div class="onboard-section">
+      <div class="onboard-section-label">Date of birth</div>
+      <div class="dob-row">
+        <select id="dob-month" class="text-input">
+          <option value="">Month</option>
+          <option>January</option><option>February</option><option>March</option>
+          <option>April</option><option>May</option><option>June</option>
+          <option>July</option><option>August</option><option>September</option>
+          <option>October</option><option>November</option><option>December</option>
+        </select>
+        <select id="dob-day" class="text-input" style="max-width:90px">
+          <option value="">Day</option>
+          <script>for(let d=1;d<=31;d++) document.write('<option>'+d+'</option>')</script>
+        </select>
+        <select id="dob-year" class="text-input" style="max-width:100px">
+          <option value="">Year</option>
+          <script>for(let y=new Date().getFullYear()-18;y>=1940;y--) document.write('<option>'+y+'</option>')</script>
+        </select>
+      </div>
     </div>
-    <!-- Step C: Show me -->
-    <div id="onboard-c" class="onboard-step">
-      <div class="onboard-q">Show me</div>
+
+    <div class="onboard-section">
+      <div class="onboard-section-label">Show me</div>
       <div class="chip-group">
         <div class="chip" onclick="selectChip(this,'pref')">Men</div>
         <div class="chip" onclick="selectChip(this,'pref')">Women</div>
         <div class="chip" onclick="selectChip(this,'pref')">Both</div>
       </div>
-      <div class="spacer"></div>
-      <button class="btn btn-primary onboard-next" onclick="startRating()">Start rating</button>
     </div>
+
+    <div class="onboard-section">
+      <div class="onboard-section-label">City</div>
+      <input id="input-city" class="text-input" type="text" placeholder="Austin, TX">
+    </div>
+
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="startRating()">Start rating</button>
   </div>
 
-  <!-- ── RATE ── -->
+  <!-- RATE -->
   <div id="screen-rate" class="screen">
     <div class="rate-header">
-      <div class="rate-header-title">Who catches your eye?</div>
+      <div class="rate-header-title">Get your personalized algorithm by completing 25 ratings</div>
       <div class="rate-counter" id="rate-counter">1 / 25</div>
     </div>
+
     <div class="profile-card" id="profile-card">
-      <!-- TODO: replace color block with <video src> when clips exist -->
+      <!-- TODO: replace with <video src> when clips exist — currently using synthetic Sora clips -->
       <div class="profile-visual" id="profile-visual">
-        <div class="profile-initial" id="profile-initial">M</div>
+        <div class="profile-visual-fallback" id="profile-fallback"></div>
+        <video id="profile-video" autoplay loop muted playsinline></video>
       </div>
       <div class="profile-info">
         <div class="profile-name" id="profile-name">Maya, 31</div>
@@ -375,15 +267,16 @@ label.field-label { font-size: 13px; color: var(--muted); margin-bottom: -8px; }
         <div class="profile-social">instagram · linkedin · x · tiktok — unlocked after you match</div>
       </div>
     </div>
+
     <div class="rating-grid" id="rating-grid"></div>
   </div>
 
-  <!-- ── REVEAL ── -->
+  <!-- REVEAL -->
   <div id="screen-reveal" class="screen">
     <div class="reveal-inner">
       <div>
         <span class="reveal-badge" id="reveal-badge">BOT</span>
-        <div class="reveal-title" id="reveal-title" style="margin-top:12px">BOT!</div>
+        <div class="reveal-title" id="reveal-title">BOT!</div>
       </div>
       <div class="reveal-body" id="reveal-body"></div>
       <div class="spacer"></div>
@@ -392,12 +285,12 @@ label.field-label { font-size: 13px; color: var(--muted); margin-bottom: -8px; }
     <div class="reveal-progress-wrap">
       <div class="reveal-progress-label" id="reveal-progress-label">1 of 25 rated</div>
       <div class="reveal-progress-track">
-        <div class="reveal-progress-fill" id="reveal-progress-fill"></div>
+        <div class="reveal-progress-fill" id="reveal-progress-fill" style="width:0%"></div>
       </div>
     </div>
   </div>
 
-  <!-- ── REPORT ── -->
+  <!-- REPORT -->
   <div id="screen-report" class="screen">
     <div class="report-headline">You are a<br><span id="report-type">voice</span> person.</div>
     <div class="report-bars" id="report-bars"></div>
@@ -411,13 +304,13 @@ label.field-label { font-size: 13px; color: var(--muted); margin-bottom: -8px; }
         <div class="stat-label">Bots spotted</div>
       </div>
     </div>
-    <div class="report-cta">
+    <div style="margin-top:22px">
       <button class="btn btn-primary" onclick="showScreen('register')">Register to see results &amp; keep voting</button>
     </div>
     <button class="reset-link" onclick="resetAll()">Reset demo</button>
   </div>
 
-  <!-- ── REGISTER ── -->
+  <!-- REGISTER -->
   <div id="screen-register" class="screen">
     <div class="register-title">Create your account</div>
     <div class="register-sub">See who rated you. Get matched. Start meeting people.</div>
@@ -429,75 +322,93 @@ label.field-label { font-size: 13px; color: var(--muted); margin-bottom: -8px; }
     <button class="btn btn-primary" onclick="submitRegister()">Create account</button>
   </div>
 
-  <!-- ── CONFIRM ── -->
+  <!-- CONFIRM -->
   <div id="screen-confirm" class="screen">
-    <div class="confirm-icon">+</div>
+    <div class="spacer"></div>
+    <div class="confirm-mark">+</div>
     <div class="confirm-title">You're in.</div>
     <div class="confirm-sub">We'll text you when someone rated you highly. Keep your phone close.</div>
+    <div class="spacer"></div>
   </div>
 
 </div>
 </div>
 
 <script>
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// SYNTHETIC CLIP BASE — Sora-generated profiles hosted on GH Pages
+// TODO: replace BASE_URL with production CDN when available
+// ─────────────────────────────────────────────────────────────
+const BASE_URL = 'https://pearlouisebot.github.io/hotorbotdemo_Pearlouise';
+const CLIP_COUNT = 8; // clip-1.mp4 through clip-8.mp4
+
+// ─────────────────────────────────────────────────────────────
 // FAKE DATA
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 const COLORS = ["#2B2560","#1F3A5F","#2D4A22","#4A2D22","#3D1F3D","#1F3D3D"];
 const ATTRIBUTES = ["voice","humour","style"];
 
 const PEOPLE = [
-  { id:1,  name:"Maya",    age:31, school:"Stanford",   job:"product designer",    isBot:false, color:COLORS[0], attr:"voice"  },
-  { id:2,  name:"Ravi",    age:28, school:"MIT",         job:"software engineer",   isBot:true,  color:COLORS[1], attr:"humour" },
-  { id:3,  name:"Cleo",    age:34, school:"Yale",        job:"brand strategist",    isBot:false, color:COLORS[2], attr:"style"  },
-  { id:4,  name:"Finn",    age:29, school:"Columbia",    job:"startup founder",     isBot:false, color:COLORS[3], attr:"voice"  },
-  { id:5,  name:"Zara",    age:27, school:"Harvard",     job:"UX researcher",       isBot:true,  color:COLORS[4], attr:"humour" },
-  { id:6,  name:"Omar",    age:33, school:"Princeton",   job:"venture capitalist",  isBot:false, color:COLORS[5], attr:"style"  },
-  { id:7,  name:"Jade",    age:26, school:"Dartmouth",   job:"creative director",   isBot:false, color:COLORS[0], attr:"voice"  },
-  { id:8,  name:"Leo",     age:30, school:"Wharton",     job:"investment analyst",  isBot:true,  color:COLORS[1], attr:"humour" },
-  { id:9,  name:"Sasha",   age:32, school:"UCLA",        job:"film director",       isBot:false, color:COLORS[2], attr:"style"  },
-  { id:10, name:"Drew",    age:35, school:"Cornell",     job:"architect",           isBot:true,  color:COLORS[3], attr:"voice"  },
-  { id:11, name:"Nia",     age:28, school:"Georgetown",  job:"policy advisor",      isBot:false, color:COLORS[4], attr:"humour" },
-  { id:12, name:"Kai",     age:31, school:"Emory",       job:"biotech founder",     isBot:false, color:COLORS[5], attr:"style"  },
-  { id:13, name:"Priya",   age:29, school:"NYU",         job:"data scientist",      isBot:true,  color:COLORS[0], attr:"voice"  },
-  { id:14, name:"Blake",   age:36, school:"Northwestern",job:"operations lead",     isBot:false, color:COLORS[1], attr:"humour" },
-  { id:15, name:"Avery",   age:27, school:"Duke",        job:"growth marketer",     isBot:true,  color:COLORS[2], attr:"style"  },
-  { id:16, name:"Sam",     age:33, school:"Tuck MBA",    job:"management consultant",isBot:false, color:COLORS[3], attr:"voice"  },
-  { id:17, name:"Mia",     age:30, school:"USC",         job:"entertainment lawyer", isBot:true,  color:COLORS[4], attr:"humour" },
-  { id:18, name:"Cole",    age:28, school:"Michigan",    job:"product manager",     isBot:false, color:COLORS[5], attr:"style"  },
-  { id:19, name:"Ines",    age:32, school:"Oxford",      job:"economist",           isBot:true,  color:COLORS[0], attr:"voice"  },
-  { id:20, name:"Reed",    age:29, school:"UT Austin",   job:"tech entrepreneur",   isBot:false, color:COLORS[1], attr:"humour" },
-  { id:21, name:"Tess",    age:31, school:"Chicago Booth",job:"CFO",               isBot:true,  color:COLORS[2], attr:"style"  },
-  { id:22, name:"Jude",    age:34, school:"Vanderbilt",  job:"real estate developer",isBot:false, color:COLORS[3], attr:"voice"  },
-  { id:23, name:"Asha",    age:27, school:"Penn",        job:"angel investor",      isBot:false, color:COLORS[4], attr:"humour" },
-  { id:24, name:"Eli",     age:30, school:"Kellogg",     job:"brand founder",       isBot:true,  color:COLORS[5], attr:"style"  },
-  { id:25, name:"Nova",    age:33, school:"Johns Hopkins",job:"neuroscientist",     isBot:false, color:COLORS[0], attr:"voice"  },
+  { id:1,  name:"Maya",    age:31, school:"Stanford",    job:"product designer",      isBot:false, attr:"voice"  },
+  { id:2,  name:"Ravi",    age:28, school:"MIT",          job:"software engineer",     isBot:true,  attr:"humour" },
+  { id:3,  name:"Cleo",    age:34, school:"Yale",         job:"brand strategist",      isBot:false, attr:"style"  },
+  { id:4,  name:"Finn",    age:29, school:"Columbia",     job:"startup founder",       isBot:false, attr:"voice"  },
+  { id:5,  name:"Zara",    age:27, school:"Harvard",      job:"UX researcher",         isBot:true,  attr:"humour" },
+  { id:6,  name:"Omar",    age:33, school:"Princeton",    job:"venture capitalist",    isBot:false, attr:"style"  },
+  { id:7,  name:"Jade",    age:26, school:"Dartmouth",    job:"creative director",     isBot:false, attr:"voice"  },
+  { id:8,  name:"Leo",     age:30, school:"Wharton",      job:"investment analyst",    isBot:true,  attr:"humour" },
+  { id:9,  name:"Sasha",   age:32, school:"UCLA",         job:"film director",         isBot:false, attr:"style"  },
+  { id:10, name:"Drew",    age:35, school:"Cornell",      job:"architect",             isBot:true,  attr:"voice"  },
+  { id:11, name:"Nia",     age:28, school:"Georgetown",   job:"policy advisor",        isBot:false, attr:"humour" },
+  { id:12, name:"Kai",     age:31, school:"Emory",        job:"biotech founder",       isBot:false, attr:"style"  },
+  { id:13, name:"Priya",   age:29, school:"NYU",          job:"data scientist",        isBot:true,  attr:"voice"  },
+  { id:14, name:"Blake",   age:36, school:"Northwestern", job:"operations lead",       isBot:false, attr:"humour" },
+  { id:15, name:"Avery",   age:27, school:"Duke",         job:"growth marketer",       isBot:true,  attr:"style"  },
+  { id:16, name:"Sam",     age:33, school:"Tuck MBA",     job:"management consultant", isBot:false, attr:"voice"  },
+  { id:17, name:"Mia",     age:30, school:"USC",          job:"entertainment lawyer",  isBot:true,  attr:"humour" },
+  { id:18, name:"Cole",    age:28, school:"Michigan",     job:"product manager",       isBot:false, attr:"style"  },
+  { id:19, name:"Ines",    age:32, school:"Oxford",       job:"economist",             isBot:true,  attr:"voice"  },
+  { id:20, name:"Reed",    age:29, school:"UT Austin",    job:"tech entrepreneur",     isBot:false, attr:"humour" },
+  { id:21, name:"Tess",    age:31, school:"Chicago Booth",job:"CFO",                  isBot:true,  attr:"style"  },
+  { id:22, name:"Jude",    age:34, school:"Vanderbilt",   job:"real estate developer", isBot:false, attr:"voice"  },
+  { id:23, name:"Asha",    age:27, school:"Penn",         job:"angel investor",        isBot:false, attr:"humour" },
+  { id:24, name:"Eli",     age:30, school:"Kellogg",      job:"brand founder",         isBot:true,  attr:"style"  },
+  { id:25, name:"Nova",    age:33, school:"Johns Hopkins", job:"neuroscientist",       isBot:false, attr:"voice"  },
 ];
 
-// ─────────────────────────────────────────────
-// API STUBS
-// Each function is what the real backend call would be.
-// Swap in fetch() calls here; UI never touches PEOPLE directly.
-// ─────────────────────────────────────────────
+// Assign clip index (cycles 1–8) and color
+PEOPLE.forEach((p, i) => {
+  p.clip = (i % CLIP_COUNT) + 1;
+  p.color = COLORS[i % COLORS.length];
+  p.clipUrl = `${BASE_URL}/clips/clip-${p.clip}.mp4`;
+  p.posterUrl = `${BASE_URL}/posters/poster-${p.clip}.jpg`;
+});
 
-let _queue = [];         // shuffled deck for this session
+// ─────────────────────────────────────────────────────────────
+// API STUBS
+// Each function simulates what the real backend call would do.
+// To wire up a real API: replace the body of each function with
+// the appropriate fetch() call — no other code needs to change.
+// ─────────────────────────────────────────────────────────────
+
+let _queue = [];
 let _queueIndex = 0;
 
-// GET /api/profiles/next — returns the next profile object, or null when done
+// GET /api/profiles/next
 async function getNextProfile() {
   if (_queueIndex >= _queue.length) return null;
   return _queue[_queueIndex++];
 }
 
-// POST /api/ratings — records { profileId, score } for the current user
+// POST /api/ratings  { id, score }
 async function postRating(id, score) {
-  // real: await fetch('/api/ratings', { method:'POST', body: JSON.stringify({ id, score }) });
+  // real: await fetch('/api/ratings', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id, score}) });
   return { ok: true };
 }
 
-// GET /api/me/report — returns aggregate stats for the current user
+// GET /api/me/report
 async function getReport() {
-  // real: return await (await fetch('/api/me/report')).json();
+  // real: return (await fetch('/api/me/report')).json();
   const avg = ratings.length
     ? (ratings.reduce((a, r) => a + r.score, 0) / ratings.length).toFixed(1)
     : 0;
@@ -506,9 +417,7 @@ async function getReport() {
     const p = PEOPLE.find(x => x.id === r.id);
     return p && p.isBot && r.score < myAvg;
   }).length;
-  // tally attributes
-  const attrTotals = {};
-  const attrCounts = {};
+  const attrTotals = {}, attrCounts = {};
   for (const r of ratings) {
     const p = PEOPLE.find(x => x.id === r.id);
     if (!p) continue;
@@ -523,31 +432,25 @@ async function getReport() {
   return { avg, botsSpotted, attrAvgs, topAttr };
 }
 
-// POST /api/auth/register — creates account with email and phone
+// POST /api/auth/register  { email, phone }
 async function register(email, phone) {
-  // real: await fetch('/api/auth/register', { method:'POST', body: JSON.stringify({ email, phone }) });
+  // real: await fetch('/api/auth/register', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email, phone}) });
   return { ok: true };
 }
 
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // STATE
-// ─────────────────────────────────────────────
-let ratings = [];       // [{ id, score }]
+// ─────────────────────────────────────────────────────────────
+let ratings = [];
 let currentProfile = null;
 let onboardData = {};
 
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // NAVIGATION
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-' + id).classList.add('active');
-}
-
-function onboardStep(step) {
-  document.querySelectorAll('.onboard-step').forEach(s => s.classList.remove('active'));
-  document.getElementById(['onboard-a','onboard-b','onboard-c'][step]).classList.add('active');
-  showScreen('onboard');
 }
 
 function selectChip(el, group) {
@@ -556,10 +459,17 @@ function selectChip(el, group) {
   onboardData[group] = el.textContent;
 }
 
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // RATING
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 function startRating() {
+  onboardData.dob = [
+    document.getElementById('dob-month').value,
+    document.getElementById('dob-day').value,
+    document.getElementById('dob-year').value,
+  ].filter(Boolean).join(' ');
+  onboardData.city = document.getElementById('input-city').value;
+
   _queue = [...PEOPLE].sort(() => Math.random() - 0.5);
   _queueIndex = 0;
   ratings = [];
@@ -574,6 +484,7 @@ function buildRatingButtons() {
     const b = document.createElement('button');
     b.className = 'rating-btn';
     b.textContent = i;
+    b.id = 'rb-' + i;
     b.onclick = () => handleRating(i);
     grid.appendChild(b);
   }
@@ -581,17 +492,28 @@ function buildRatingButtons() {
 
 async function loadNext() {
   currentProfile = await getNextProfile();
-  if (!currentProfile) {
-    await showReport();
-    return;
-  }
+  if (!currentProfile) { await showReport(); return; }
+
   showScreen('rate');
   const n = _queueIndex;
   document.getElementById('rate-counter').textContent = n + ' / 25';
-  document.getElementById('profile-visual').style.background = currentProfile.color;
-  document.getElementById('profile-initial').textContent = currentProfile.name[0];
+
+  // video
+  const vid = document.getElementById('profile-video');
+  const fb  = document.getElementById('profile-fallback');
+  fb.textContent = currentProfile.name[0];
+  vid.poster = currentProfile.posterUrl;
+  vid.src = currentProfile.clipUrl;
+  vid.load();
+  vid.play().catch(() => {});
+
   document.getElementById('profile-name').textContent = currentProfile.name + ', ' + currentProfile.age;
   document.getElementById('profile-school-job').textContent = currentProfile.school + ' · ' + currentProfile.job;
+
+  for (let i = 1; i <= 10; i++) {
+    const b = document.getElementById('rb-' + i);
+    if (b) { b.disabled = false; b.classList.remove('selected'); }
+  }
 }
 
 async function handleRating(score) {
@@ -637,13 +559,15 @@ async function showReport() {
 
   const bars = document.getElementById('report-bars');
   bars.innerHTML = '';
-  const maxVal = Math.max(...ATTRIBUTES.map(a => data.attrAvgs[a] || 0), 1);
   ATTRIBUTES.forEach(attr => {
     const val = data.attrAvgs[attr] || 0;
     const pct = Math.round((val / 10) * 100);
     bars.innerHTML += `
       <div class="bar-row">
-        <div class="bar-label"><span>${attr.charAt(0).toUpperCase() + attr.slice(1)}</span><span>${val.toFixed(1)} avg</span></div>
+        <div class="bar-label">
+          <span>${attr.charAt(0).toUpperCase() + attr.slice(1)}</span>
+          <span>${val.toFixed(1)} avg</span>
+        </div>
         <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
       </div>`;
   });
@@ -659,9 +583,7 @@ async function submitRegister() {
 }
 
 function resetAll() {
-  ratings = [];
-  _queueIndex = 0;
-  onboardData = {};
+  ratings = []; _queueIndex = 0; onboardData = {};
   showScreen('splash');
 }
 </script>
